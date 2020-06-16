@@ -8,9 +8,19 @@ public class TestArray {
 
     }
 
-    public int[] res(int[] nums1, int[] nums2) {
-        int i = 0, j = 0;
-        return new int[]{-1, -1};
+    int[] memo;
+    public int decode(String s) {
+        memo = new int[s.length()];
+        return helper(s, 0);
+    }
+
+    private int helper(String s, int i) {
+        if (i == s.length()) return 1;
+        if (memo[i] != 0) return memo[i];
+        int cnt = 0;
+        if (s.charAt(i) != '0') cnt += helper(s, i + 1);
+        if (i + 2 <= s.length()) cnt += helper(s, i + 2);
+        return memo[i] = cnt;
     }
 
 
