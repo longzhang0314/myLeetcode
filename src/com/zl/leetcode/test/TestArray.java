@@ -8,19 +8,24 @@ public class TestArray {
 
     }
 
-    int[] memo;
-    public int decode(String s) {
-        memo = new int[s.length()];
-        return helper(s, 0);
+
+    public boolean isMatch(String s, String p) {
+        return match(s.toCharArray(), p.toCharArray(), 0, 0);
     }
 
-    private int helper(String s, int i) {
-        if (i == s.length()) return 1;
-        if (memo[i] != 0) return memo[i];
-        int cnt = 0;
-        if (s.charAt(i) != '0') cnt += helper(s, i + 1);
-        if (i + 2 <= s.length()) cnt += helper(s, i + 2);
-        return memo[i] = cnt;
+    private boolean match(char[] s, char[] p, int sx, int px) {
+        if (px == p.length) return sx == s.length;
+        // process .
+        boolean firstMatch = sx < s.length && (s[sx] == p[px] || p[px] == '.');
+
+        if (p.length >= 2 && p[px] == '*') {
+            // process *
+            return match(s, p, sx, px + 2)
+                    || match(s, p, sx + 1, px);
+        }
+
+        // process .
+        return firstMatch && match(s, p, sx + 1, px + 1);
     }
 
 

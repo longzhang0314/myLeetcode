@@ -19,13 +19,37 @@ public class DecodeWays_91 {
         System.out.println(test.numDecodings2("12"));
     }
 
+
     /**
-     * 方法1：递归+缓存
+     * 方法1：递归
+     * 寻找重复性
+     * @param s
+     * @return
+     */
+    public int numDecodings1(String s) {
+        if (s.length() == 0) return 1;
+        int cnt = 0;
+        // 当前位如果不是0，走此路
+        if (s.charAt(0) != '0')
+            cnt += numDecodings1(s.substring(1));
+
+        // 当前满足以下条件，走此路
+        if (s.length() >= 2
+                && Integer.parseInt(s.substring(0, 2)) >= 10
+                && Integer.parseInt(s.substring(0, 2)) <= 26)
+            cnt += numDecodings1(s.substring(2));
+
+        return cnt;
+    }
+
+
+    /**
+     * 方法2：递归+缓存
      *
      * @param s
      * @return
      */
-    public int numDecodings(String s) {
+    public int numDecodings2(String s) {
         if (s.length() == 0) return 1;
         int[] memo = new int[s.length()];
         return helper(s, 0, memo);
@@ -48,10 +72,11 @@ public class DecodeWays_91 {
 
 
     /**
+     * 方法3：DP
      * @param s
      * @return
      */
-    public int numDecodings2(String s) {
+    public int numDecodings3(String s) {
         if (s.length() == 0) return 1;
         int[] opt = new int[s.length() + 1];
         opt[0] = 1;
