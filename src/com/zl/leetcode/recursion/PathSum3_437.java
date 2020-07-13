@@ -14,7 +14,7 @@ public class PathSum3_437 {
 
     public int pathSum(TreeNode root, int sum) {
         if (root == null) return 0;
-        // 包含root节点的路径总和 + 左子树路径总和 + 右子树路径总和
+        // 包含root节点的路径总和 + 左子树路径总和 + 右子树路径总和 (换种说法：包含根节点的路径和 + 不包含根节点的路径和)
         return count(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
     }
 
