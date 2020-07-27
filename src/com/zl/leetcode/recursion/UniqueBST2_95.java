@@ -12,6 +12,7 @@ import java.util.List;
 public class UniqueBST2_95 {
 
     public List<TreeNode> generateTrees(int n) {
+        if (n == 0) return new ArrayList<>();
         return generateTrees(1, n);
     }
 
