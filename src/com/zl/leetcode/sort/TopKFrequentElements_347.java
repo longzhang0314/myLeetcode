@@ -17,54 +17,38 @@ public class TopKFrequentElements_347 {
      * @return
      */
     public int[] topKFrequent1(int[] nums, int k) {
-        Arrays.sort(nums);
+        // frequency dict
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int n : nums) {
+            frequencyMap.put(n, frequencyMap.getOrDefault(n, 0) + 1);
+        }
+
+        // small top head
+        PriorityQueue<Map.Entry<Integer, Integer>> heap = new PriorityQueue<>(Comparator.comparingInt(Map.Entry::getValue));
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if (heap.size() == k) {
+                if (heap.peek().getValue() < entry.getValue()) {
+                    heap.poll();
+                } else {
+                    continue;
+                }
+            }
+            heap.offer(entry);
+        }
+
+        // poll from heap
         int[] res = new int[k];
-        res[0] = nums[0];
-        int idx = 1;
-        int tmp = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] == tmp) continue;
-            tmp = nums[i];
-            res[idx++] = nums[i];
+        int cnt = 0;
+        while (!heap.isEmpty()) {
+            res[cnt++] = heap.poll().getKey();
         }
         return res;
     }
+
 
     /**
      * 2.
      *
-     * @param nums
-     * @param k
-     * @return
-     */
-    public int[] topKFrequent2(int[] nums, int k) {
-        Map<Integer, Integer> frequenceMap = new HashMap<>();
-        for (int n : nums) {
-            frequenceMap.put(n, frequenceMap.getOrDefault(n, 0) + 1);
-        }
-
-        PriorityQueue<Integer> heap = new PriorityQueue<>(k);
-        for (int n : nums) {
-            if (heap.size() == k) {
-                if (frequenceMap.get(heap.peek()) > frequenceMap.get(n)) {
-                    continue;
-                }
-                heap.poll();
-            }
-            heap.offer(n);
-        }
-
-        int[] res = new int[k];
-        int idx = 0;
-        while (!heap.isEmpty()) {
-            res[idx++] = heap.poll();
-        }
-        return res;
-    }
-
-
-    /**
-     * 3.
      * @param nums
      * @param k
      * @return
@@ -87,11 +71,11 @@ public class TopKFrequentElements_347 {
 
         int[] res = new int[k];
         int cnt = 0;
-        wc:
+        outer:
         for (int i = buckets.length - 1; i > 0; i--) {
             if (buckets[i] == null) continue;
             for (int ele : buckets[i]) {
-                if (cnt == k) break wc;
+                if (cnt == k) break outer;
                 res[cnt++] = ele;
             }
         }
