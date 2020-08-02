@@ -1,4 +1,6 @@
-package com.zl.leetcode;
+package com.zl.leetcode.test;
+
+import com.zl.leetcode.TreeNode;
 
 /**
  * Create by zhanglong on 2020/7/31

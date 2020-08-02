@@ -40,4 +40,27 @@ public class Sqrtx_69 {
         }
         return -1;
     }
+
+
+    /**
+     * 2. 推荐解法，不越界
+     * @param x
+     * @return
+     */
+    public int mySqrt2(int x) {
+        if (x <= 1) return x;
+        int left = 1, right = x;
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            int sqrt = x / mid;
+            if (sqrt == mid) {
+                return mid;
+            } else if (sqrt < mid) {
+                right = mid - 1;
+            } else if (sqrt > mid) {
+                left = mid + 1;
+            }
+        }
+        return right;
+    }
 }
