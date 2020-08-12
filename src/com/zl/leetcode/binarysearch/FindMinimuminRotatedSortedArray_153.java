@@ -16,6 +16,6 @@ public class FindMinimuminRotatedSortedArray_153 {
 
     public int findMin(int[] nums) {
         //todo
-
+        return -1;
     }
 }
