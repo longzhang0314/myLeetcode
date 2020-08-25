@@ -1,12 +1,25 @@
 package com.zl.leetcode.test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Create by zhanglong on 2020/6/8
  */
 public class TestArray {
     public static void main(String[] args) {
+        System.out.println(multi(new int[]{1, 2, 3, 1}));
 
     }
+    public static boolean multi(int[] nums) {
+        if (nums == null || nums.length == 0) return false;
+        Set<Integer> set = new HashSet<>();
+        for (int n : nums) {
+            if (!set.add(n)) return true;
+        }
+        return false;
+    }
+
 
 
     public boolean isMatch(String s, String p) {
