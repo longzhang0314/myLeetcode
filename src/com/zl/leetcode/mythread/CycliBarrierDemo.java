@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 /**
  * CycliBarrier练习
- * 相比于CountDownLatch，可以重复利用，从0加到计数点，然后重置为0
+ * 相比于CountDownLatch，可以重复利用，从计数点减为0，然后重置为计数点
  *
  * Create by zhanglong on 2020/8/26
  */
@@ -22,7 +22,7 @@ public class CycliBarrierDemo {
             int finalI = i;
             executor.execute(() -> {
                 System.out.println("start: " + finalI);
-                // 调用await方法计数器+1, 到total后重置为0
+                // 调用await方法计数器-1, 0后重置为total
                 try {
                     cyclicBarrier.await();
                 } catch (InterruptedException | BrokenBarrierException e) {
